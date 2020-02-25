@@ -49,18 +49,18 @@ contract Asset {
     }
     
     
-    function createNewLand(string memory _username, address user_addres,  string memory size, uint price, string memory gps, string memory details) public {
+    function createNewLand(address user_addres,  string memory size, uint price, string memory gps, string memory details) public {
         
-        uint id = keccak256(uint256(now));
+        uint id = uint(keccak256(abi.encodePacked(msg.sender, now)));
         Land memory thisLand = Land(size, user_addres, id, price, gps, details, now);
         landMaps[id] = thisLand;
         numLands+=1;
     }
     
     
-    function createNewBuilding(string memory _username, address user_addres, uint num_rooms, string memory size, uint price, string memory gps, string memory details) public {
+    function createNewBuilding(address user_addres, uint num_rooms, string memory size, uint price, string memory gps, string memory details) public {
         
-        uint id = keccak256(uint256(now));
+        uint id = uint(keccak256(abi.encodePacked(msg.sender, now)));
         Building memory thisBuilding = Building(size, user_addres, id, price, gps, details,num_rooms, now);
         buildingMaps[id] = thisBuilding;
         numBuildings+=1;
